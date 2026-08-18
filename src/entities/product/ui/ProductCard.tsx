@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom"; // 1. Импортируем хук
 import { useAppDispatch, useAppSelector } from "@/app/store";
 import { addItem } from "@/entities/cart/model/slice";
 import type { Product } from "@/entities/product/model/types";
@@ -9,18 +10,29 @@ interface ProductCardProps {
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const cartItem = useAppSelector((state) =>
     state.cart.items.find((item) => item.product.id === product.id)
   );
 
   const countInCart = cartItem ? cartItem.count : 0;
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.stopPropagation();
     dispatch(addItem(product));
   };
 
+  const handleCardClick = () => {
+    navigate(`/product/${product.id}`);
+  };
+
   return (
-    <article className={styles.productCard}>
+    <article 
+      className={styles.productCard} 
+      onClick={handleCardClick}
+      style={{ cursor: "pointer" }}
+    >
       <header className={styles.productCard__header}>
         <div className={styles.productCard__media}>
           <img
