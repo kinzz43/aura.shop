@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
-import { useAppSelector } from "@/app/store";
+import { useAppDispatch, useAppSelector } from "@/app/store";
+import { setSearchQuery } from "@/features/filter-products/model/slice";
 import { Logo } from "@/shared/ui/Logo/Logo";
 import { CartModal } from "@/widgets/cart-modal/ui/CartModal";
 import styles from "./Header.module.css";
 
 export const Header = () => {
+  const dispatch = useAppDispatch();
   const { totalPrice, totalCount } = useAppSelector((state) => state.cart);
+  const searchQuery = useAppSelector(
+    (state) => state.filterProducts.searchQuery
+  );
+
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -30,7 +36,9 @@ export const Header = () => {
   return (
     <>
       <header
-        className={`${styles.header} ${!isVisible ? styles["header--hidden"] : ""}`}
+        className={`${styles.header} ${
+          !isVisible ? styles["header--hidden"] : ""
+        }`}
       >
         <div className={styles.header__container}>
           <a href="#" style={{ display: "inline-block" }}>
@@ -40,6 +48,8 @@ export const Header = () => {
           <div className={styles.header__search}>
             <input
               type="text"
+              value={searchQuery}
+              onChange={(e) => dispatch(setSearchQuery(e.target.value))}
               placeholder="Поиск девайсов..."
               className={styles.header__searchInput}
             />

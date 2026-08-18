@@ -3,11 +3,19 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { Product } from "@/entities/product/model/types";
 import type { CartItem, CartState } from "./types";
 
-const initialState: CartState = {
-  items: [],
-  totalPrice: 0,
-  totalCount: 0,
+// Функция для загрузки состояния из localStorage
+const loadCartFromLS = (): CartState => {
+  try {
+    const data = localStorage.getItem("cart");
+    return data
+      ? JSON.parse(data)
+      : { items: [], totalPrice: 0, totalCount: 0 };
+  } catch {
+    return { items: [], totalPrice: 0, totalCount: 0 };
+  }
 };
+
+const initialState: CartState = loadCartFromLS();
 
 const calcTotals = (items: CartItem[]) => {
   const totalPrice = items.reduce(
@@ -16,6 +24,15 @@ const calcTotals = (items: CartItem[]) => {
   );
   const totalCount = items.reduce((sum, item) => sum + item.count, 0);
   return { totalPrice, totalCount };
+};
+
+// Функция для сохранения состояния в localStorage
+const saveCartToLS = (state: CartState) => {
+  try {
+    localStorage.setItem("cart", JSON.stringify(state));
+  } catch (error) {
+    console.error("Ошибка сохранения корзины в localStorage:", error);
+  }
 };
 
 export const cartSlice = createSlice({
@@ -39,6 +56,7 @@ export const cartSlice = createSlice({
       const { totalPrice, totalCount } = calcTotals(state.items);
       state.totalPrice = totalPrice;
       state.totalCount = totalCount;
+      saveCartToLS(state);
     },
     minusItem(state, action: PayloadAction<string>) {
       const findItem = state.items.find((obj) => obj.product.id === action.payload);
@@ -56,6 +74,7 @@ export const cartSlice = createSlice({
       const { totalPrice, totalCount } = calcTotals(state.items);
       state.totalPrice = totalPrice;
       state.totalCount = totalCount;
+      saveCartToLS(state);
     },
     removeItem(state, action: PayloadAction<string>) {
       state.items = state.items.filter(
@@ -65,11 +84,13 @@ export const cartSlice = createSlice({
       const { totalPrice, totalCount } = calcTotals(state.items);
       state.totalPrice = totalPrice;
       state.totalCount = totalCount;
+      saveCartToLS(state);
     },
     clearItems(state) {
       state.items = [];
       state.totalPrice = 0;
       state.totalCount = 0;
+      saveCartToLS(state);
     },
   },
 });

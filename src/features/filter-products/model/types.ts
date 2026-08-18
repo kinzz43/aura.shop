@@ -1,4 +1,4 @@
-export type ProductCategory = "all" | "keyboards" | "mice" | "eadsets" | "monitors" | "accessories";
+export type ProductCategory = "all" | "keyboards" | "mice" | "headsets" | "monitors" | "accessories";
 
 export type SortOption = "popular" | "price-asc" | "price-desc" | "rating";
 

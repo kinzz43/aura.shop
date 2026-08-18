@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/app/store";
-import { addItem, minusItem } from "@/entities/cart/model/slice";
+import { addItem, minusItem, clearItems } from "@/entities/cart/model/slice";
 import styles from "./CartModal.module.css";
 
 interface CartModalProps {
@@ -18,9 +18,20 @@ export const CartModal = ({ isOpen, onClose }: CartModalProps) => {
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <header className={styles.modal__header}>
           <h2 className={styles.modal__title}>Корзина</h2>
-          <button className={styles.modal__close} onClick={onClose}>
-            ✕
-          </button>
+          
+          <div className={styles.modal__actions}>
+            {items.length > 0 && (
+              <button
+                className={styles.modal__clearBtn}
+                onClick={() => dispatch(clearItems())}
+              >
+                Очистить
+              </button>
+            )}
+            <button className={styles.modal__close} onClick={onClose}>
+              ✕
+            </button>
+          </div>
         </header>
 
         <div className={styles.modal__content}>
