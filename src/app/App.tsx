@@ -1,6 +1,9 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/app/store";
+import { useAppDispatch, useAppSelector } from "./store";
 import { fetchProducts } from "@/entities/product/model/slice";
+import { ProductCard } from "@/entities/product/ui/ProductCard";
+import { Header } from "@/widgets/header/ui/Header";
+import { Footer } from "@/widgets/footer/ui/Footer";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -11,31 +14,27 @@ function App() {
   }, [dispatch]);
 
   return (
-    <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1>AURA SHOP — Проверка Supabase & Redux</h1>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+      <Header />
 
-      {isLoading && <p>Загрузка товаров из базы данных...</p>}
-      {error && <p style={{ color: "red" }}>Ошибка: {error}</p>}
+      <main style={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem", flex: 1, width: "100%" }}>
+        {isLoading && <p>Загрузка каталога...</p>}
+        {error && <p style={{ color: "red" }}>Ошибка: {error}</p>}
 
-      <div style={{ display: "grid", gap: "1rem", marginTop: "1rem" }}>
-        {items.map((product) => (
-          <div
-            key={product.id}
-            style={{
-              border: "1px solid #ccc",
-              borderRadius: "8px",
-              padding: "1rem",
-              maxWidth: "400px",
-            }}
-          >
-            <h3>{product.title}</h3>
-            <p>{product.description}</p>
-            <p>
-              <strong>Цена:</strong> {product.price} ₽
-            </p>
-          </div>
-        ))}
-      </div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+            gap: "1.5rem",
+          }}
+        >
+          {items.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }

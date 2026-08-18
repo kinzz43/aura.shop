@@ -1,0 +1,77 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  transition: transform 0.3s ease-in-out;
+}
+
+.header--hidden {
+  transform: translateY(-100%);
+}
+
+.header__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.header__logo {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  text-decoration: none;
+  letter-spacing: -0.05em;
+}
+
+.header__search {
+  flex: 1;
+  max-width: 400px;
+}
+
+.header__searchInput {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.header__searchInput:focus {
+  border-color: var(--primary-color);
+}
+
+.header__cart {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.header__cart:hover {
+  background-color: var(--primary-hover);
+}
+
+.header__cartBadge {
+  background-color: #fff;
+  color: var(--primary-color);
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}

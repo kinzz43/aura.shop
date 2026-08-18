@@ -2,11 +2,11 @@ import type { Product } from "@/entities/product/model/types";
 
 export interface CartItem {
   product: Product;
-  quantity: number;
+  count: number;
 }
 
 export interface CartState {
   items: CartItem[];
-  totalAmount: number;
+  totalPrice: number;
   totalCount: number;
 }
