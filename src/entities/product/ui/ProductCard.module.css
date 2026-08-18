@@ -33,12 +33,15 @@
   position: absolute;
   top: 8px;
   left: 8px;
-  background-color: var(--badge-bg);
-  color: #fff;
   font-size: 12px;
   font-weight: 700;
   padding: 4px 8px;
   border-radius: 4px;
+
+  background-color: rgba(11, 11, 14, 0.75);
+  color: #ffffff;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(6px);
 }
 
 .productCard__title {
@@ -63,12 +66,13 @@
 }
 
 .productCard__price {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-family: var(--font-pixel);
+  font-size: 1.1rem;
   color: var(--text-main);
 }
 
 .productCard__priceOld {
+  font-family: var(--font-pixel);
   font-size: 0.9rem;
   color: var(--text-muted);
   text-decoration: line-through;

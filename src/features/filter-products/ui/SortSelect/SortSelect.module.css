@@ -1,0 +1,28 @@
+.sort {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.sort__label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.sort__select {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.sort__select:hover,
+.sort__select:focus {
+  border-color: var(--primary-color);
+}
