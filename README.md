@@ -1,6 +1,6 @@
 # Aura Shop
 
-[Открыть сайт](https://https://aura-shop-neon.vercel.app/)
+[Открыть сайт](https://aura-shop-neon.vercel.app/)
 
 Небольшой интернет-магазин на React + TypeScript.\
 Проект сделан с разделением по сущностям, фичам, страницам и общим
