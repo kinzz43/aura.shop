@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"; // 1. Импортируем хук
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/app/store";
 import { addItem } from "@/entities/cart/model/slice";
 import type { Product } from "@/entities/product/model/types";
@@ -38,6 +38,8 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           <img
             src={product.images[0] || "https://via.placeholder.com/300"}
             alt={product.title}
+            loading="lazy"
+            decoding="async"
             className={styles.productCard__image}
           />
           {product.isNew && (

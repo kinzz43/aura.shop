@@ -207,3 +207,19 @@
   color: #ef4444;
   background-color: rgba(239, 68, 68, 0.1);
 }
+
+.item__deleteBtn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.item__deleteBtn:hover {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}

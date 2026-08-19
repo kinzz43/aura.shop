@@ -1,0 +1,27 @@
+.infoPage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-color, #0f0f11);
+  color: var(--text-color, #ffffff);
+}
+
+.infoPage__main {
+  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+  width: 100%;
+}
+
+.infoPage__main h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #a855f7;
+}
+
+.infoPage__main p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #9ca3af;
+}

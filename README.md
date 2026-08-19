@@ -1,75 +1,286 @@
-# React + TypeScript + Vite
+# Aura Shop
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Небольшой интернет-магазин на React + TypeScript.\
+Проект сделан с разделением по сущностям, фичам, страницам и общим
+компонентам, чтобы потом было проще добавлять новые возможности.
 
-Currently, two official plugins are available:
+Сейчас в проекте есть каталог товаров, фильтрация и сортировка, карточка
+товара, корзина, авторизация и личный кабинет.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Что используется
 
-## React Compiler
+-   React 19
+-   TypeScript
+-   Vite
+-   Redux Toolkit
+-   React Router
+-   Supabase
+-   CSS Modules
+-   normalize.css
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Возможности
 
-## Expanding the ESLint configuration
+-   просмотр каталога товаров;
+-   поиск по названию;
+-   фильтрация по категориям;
+-   сортировка товаров по цене и рейтингу;
+-   отдельная страница товара;
+-   добавление товаров в корзину;
+-   изменение количества товаров;
+-   сохранение корзины в `localStorage`;
+-   регистрация и вход через Supabase;
+-   просмотр баланса и истории заказов;
+-   оформление заказа с оплатой с баланса пользователя;
+-   информационные страницы «О нас», «Доставка» и «Контакты»;
+-   отдельная страница для несуществующих маршрутов.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Запуск проекта
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Сначала установить зависимости:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+``` bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Запустить проект в режиме разработки:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+``` bash
+npm run dev
 ```
+
+После запуска Vite покажет адрес локального сервера в консоли.
+
+Для проверки production-сборки:
+
+``` bash
+npm run build
+```
+
+Предпросмотр готовой сборки:
+
+``` bash
+npm run preview
+```
+
+Проверка линтером:
+
+``` bash
+npm run lint
+```
+
+## Переменные окружения
+
+Проект использует Supabase. В корне должен находиться файл `.env`:
+
+``` env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+В коде эти значения используются в `src/shared/api/supabaseClient.ts`.
+
+> Не стоит добавлять реальные секретные ключи в Git. Для клиентского
+> приложения используется публичный Supabase anon/publishable key, но
+> остальные секреты проекта всё равно должны храниться отдельно.
+
+## Структура проекта
+
+Основная часть кода находится в `src`. Структура примерно такая:
+
+``` text
+aura.shop/
+├── public/
+│   └── aurafavicon.svg
+│
+├── src/
+│   ├── app/
+│   │   ├── providers/
+│   │   │   ├── router.tsx
+│   │   │   └── StoreProvider.tsx
+│   │   ├── store/
+│   │   │   └── index.ts
+│   │   └── styles/
+│   │       └── index.css
+│   │
+│   ├── entities/
+│   │   ├── cart/
+│   │   │   └── model/
+│   │   │       ├── slice.ts
+│   │   │       └── types.ts
+│   │   ├── order/
+│   │   │   └── model/
+│   │   │       └── types.ts
+│   │   ├── product/
+│   │   │   ├── api/
+│   │   │   │   └── productApi.ts
+│   │   │   ├── model/
+│   │   │   │   ├── slice.ts
+│   │   │   │   └── types.ts
+│   │   │   └── ui/
+│   │   │       ├── ProductCard.tsx
+│   │   │       └── ProductCard.module.css
+│   │   └── user/
+│   │       └── ui/
+│   │
+│   ├── features/
+│   │   └── filter-products/
+│   │       ├── model/
+│   │       │   ├── slice.ts
+│   │       │   └── types.ts
+│   │       └── ui/
+│   │           ├── CategoryFilter/
+│   │           └── SortSelect/
+│   │
+│   ├── pages/
+│   │   ├── catalog/
+│   │   ├── product-details/
+│   │   ├── cart/
+│   │   ├── profile/
+│   │   ├── info/
+│   │   └── not-found/
+│   │
+│   ├── shared/
+│   │   ├── api/
+│   │   │   └── supabaseClient.ts
+│   │   ├── assets/
+│   │   │   ├── logo.svg
+│   │   │   ├── moon.svg
+│   │   │   ├── sun.svg
+│   │   │   └── sun2.svg
+│   │   └── ui/
+│   │       └── Logo/
+│   │
+│   └── widgets/
+│       ├── header/
+│       │   └── ui/
+│       ├── footer/
+│       │   └── ui/
+│       └── cart-modal/
+│           └── ui/
+│
+├── .env
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package.json
+├── package-lock.json
+├── tsconfig.json
+├── tsconfig.app.json
+├── tsconfig.node.json
+└── vite.config.ts
+```
+
+### Что где лежит
+
+**`app`** --- глобальная настройка приложения. Здесь находятся Redux
+store, роутинг и провайдеры.
+
+**`entities`** --- основные сущности магазина. Например, товар и
+корзина. Здесь лежит их состояние, типы, API и компоненты, которые
+напрямую относятся к сущности.
+
+**`features`** --- отдельные пользовательские действия. Сейчас здесь
+находится фильтрация товаров и сортировка.
+
+**`pages`** --- полноценные страницы приложения. Страница обычно
+собирает несколько сущностей и виджетов вместе.
+
+**`widgets`** --- крупные переиспользуемые блоки интерфейса: шапка,
+подвал, модальное окно корзины.
+
+**`shared`** --- общие вещи, которые не относятся к конкретной
+бизнес-сущности: Supabase-клиент, изображения, логотип и общие
+UI-компоненты.
+
+## Роуты
+
+  Путь             Страница
+  ---------------- -----------------
+  `/`              Каталог
+  `/product/:id`   Страница товара
+  `/cart`          Корзина
+  `/profile`       Личный кабинет
+  `/about`         О нас
+  `/shipping`      Доставка
+  `/contacts`      Контакты
+  `*`              Страница 404
+
+## Состояние приложения
+
+Redux Toolkit используется для трёх основных частей:
+
+-   `product` --- список товаров, загрузка и ошибка запроса;
+-   `cart` --- содержимое корзины, количество и общая стоимость;
+-   `filterProducts` --- поиск, категория, сортировка и фильтры.
+
+Корзина дополнительно сохраняется в `localStorage`, поэтому после
+перезагрузки страницы добавленные товары не пропадают.
+
+## Supabase
+
+Supabase используется для:
+
+-   получения товаров из таблицы `products`;
+-   регистрации и входа пользователей;
+-   хранения профилей пользователей;
+-   хранения баланса;
+-   сохранения заказов;
+-   получения истории заказов.
+
+Ожидается наличие таблиц примерно с такой логикой:
+
+-   `products`
+-   `profiles`
+-   `orders`
+
+Точные поля можно посмотреть в запросах внутри
+`src/entities/product/api`, `src/pages/profile` и `src/pages/cart`.
+
+## Как работает оформление заказа
+
+При нажатии «Оформить заказ»:
+
+1.  проверяется, авторизован ли пользователь;
+2.  если пользователь не вошёл, его отправляет в профиль;
+3.  из Supabase берётся текущий баланс;
+4.  проверяется, хватает ли средств;
+5.  из баланса вычитается стоимость корзины;
+6.  создаётся запись заказа;
+7.  корзина очищается.
+
+## Небольшой нюанс
+
+Информационные страницы сейчас являются скорее заготовкой. Они уже
+подключены к роутеру, но содержимое можно заменить на полноценные
+страницы с информацией о магазине.
+
+## Стиль кода
+
+В проекте используются алиасы вида:
+
+``` ts
+import { ProductCard } from "@/entities/product/ui/ProductCard";
+```
+
+Для стилей компонентов используются CSS Modules:
+
+``` text
+Component.tsx
+Component.module.css
+```
+
+Так стили конкретного компонента не должны конфликтовать с остальными
+частями приложения.
+
+## Дальше можно улучшить
+
+Из того, что логично добавить позже:
+
+-   нормальную обработку ошибок Supabase;
+-   более полноценные фильтры по цене и наличию;
+-   отдельный сервис для работы с заказами;
+-   подтверждение оформления заказа;
+-   адаптивность для небольших экранов;
+-   skeleton-состояния вместо обычного текста загрузки;
+-   полноценное содержимое информационных страниц;
+-   тесты для Redux-слайсов и основных компонентов.

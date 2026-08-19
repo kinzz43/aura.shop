@@ -1,0 +1,149 @@
+.profilePage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.profilePage__main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.profilePage__card {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.profilePage__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0;
+}
+
+.profilePage__email {
+  color: var(--text-muted);
+  text-align: center;
+  margin: 0;
+}
+
+.profilePage__balanceCard {
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.profilePage__balanceCard strong {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+}
+
+.profilePage__error {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.profilePage__success {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  text-align: center;
+}
+
+.profilePage__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profilePage__input {
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.profilePage__input:focus {
+  border-color: var(--primary-color);
+}
+
+.profilePage__submitBtn {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.profilePage__submitBtn:hover {
+  background-color: var(--primary-hover);
+}
+
+.profilePage__logoutBtn {
+  background-color: transparent;
+  border: 1px solid #ef4444;
+  color: #ef4444;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.profilePage__logoutBtn:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.profilePage__toggleBtn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.profilePage__toggleBtn:hover {
+  color: var(--text-main);
+}
+
+.profilePage__orders {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.profilePage__orderItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed var(--border-color);
+}

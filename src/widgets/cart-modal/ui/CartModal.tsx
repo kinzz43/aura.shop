@@ -1,5 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/app/store";
-import { addItem, minusItem, clearItems } from "@/entities/cart/model/slice";
+import { addItem, minusItem, removeItem, clearItems } from "@/entities/cart/model/slice";
 import styles from "./CartModal.module.css";
 
 interface CartModalProps {
@@ -9,9 +10,15 @@ interface CartModalProps {
 
 export const CartModal = ({ isOpen, onClose }: CartModalProps) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { items, totalPrice } = useAppSelector((state) => state.cart);
 
   if (!isOpen) return null;
+
+  const handleGoToCart = () => {
+    onClose();
+    navigate("/cart");
+  };
 
   return (
     <div className={styles.overlay} onClick={onClose}>
@@ -64,6 +71,13 @@ export const CartModal = ({ isOpen, onClose }: CartModalProps) => {
                     +
                   </button>
                 </div>
+                <button
+                  className={styles.item__deleteBtn}
+                  onClick={() => dispatch(removeItem(product.id))}
+                  title="Удалить товар"
+                >
+                  ✕
+                </button>
               </div>
             ))
           )}
@@ -75,8 +89,11 @@ export const CartModal = ({ isOpen, onClose }: CartModalProps) => {
               <span>Итого:</span>
               <span>{totalPrice} ₽</span>
             </div>
-            <button className={styles.modal__checkoutBtn}>
-              Оформить заказ
+            <button 
+              className={styles.modal__checkoutBtn}
+              onClick={handleGoToCart}
+            >
+              Перейти в корзину
             </button>
           </footer>
         )}

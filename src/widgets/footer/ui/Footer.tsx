@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Logo } from "@/shared/ui/Logo/Logo";
 import styles from "./Footer.module.css";
 
@@ -16,16 +17,16 @@ export const Footer = () => {
           <nav className={styles.footer__nav}>
             <div className={styles.footer__column}>
               <span className={styles.footer__title}>Каталог</span>
-              <a href="#" className={styles.footer__link}>Клавиатуры</a>
-              <a href="#" className={styles.footer__link}>Мыши</a>
-              <a href="#" className={styles.footer__link}>Наушники</a>
+              <Link to="/?category=keyboards" className={styles.footer__link}>Клавиатуры</Link>
+              <Link to="/?category=mice" className={styles.footer__link}>Мыши</Link>
+              <Link to="/?category=headphones" className={styles.footer__link}>Наушники</Link>
             </div>
 
             <div className={styles.footer__column}>
               <span className={styles.footer__title}>Информация</span>
-              <a href="#" className={styles.footer__link}>О нас</a>
-              <a href="#" className={styles.footer__link}>Доставка</a>
-              <a href="#" className={styles.footer__link}>Контакты</a>
+              <Link to="/about" className={styles.footer__link}>О нас</Link>
+              <Link to="/shipping" className={styles.footer__link}>Доставка</Link>
+              <Link to="/contacts" className={styles.footer__link}>Контакты</Link>
             </div>
           </nav>
         </div>

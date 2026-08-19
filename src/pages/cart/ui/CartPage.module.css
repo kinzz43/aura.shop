@@ -1,0 +1,223 @@
+.cartPage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.cartPage__main {
+  flex: 1;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Шапка страницы с заголовком и кнопкой очистки */
+.cartPage__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.cartPage__title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Кнопка очистки */
+.cartPage__clearBtn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+}
+
+.cartPage__clearBtn:hover {
+  color: #ef4444;
+  border-color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.cartPage__empty {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.cartPage__emptyText {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.cartPage__catalogBtn {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.cartPage__catalogBtn:hover {
+  background-color: var(--primary-hover);
+}
+
+.cartPage__content {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .cartPage__content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cartPage__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cartPage__item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--bg-color);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.cartPage__itemImage {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.cartPage__itemInfo {
+  flex: 1;
+}
+
+.cartPage__itemTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.cartPage__itemPrice {
+  font-family: var(--font-pixel);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.cartPage__itemControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cartPage__itemBtn {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s;
+}
+
+.cartPage__itemBtn:hover {
+  border-color: var(--primary-color);
+}
+
+.cartPage__itemCount {
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-width: 20px;
+  text-align: center;
+}
+
+.cartPage__removeBtn {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.cartPage__removeBtn:hover {
+  color: #ef4444;
+  border-color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.cartPage__summary {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.cartPage__summaryTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.cartPage__summaryRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+.cartPage__summaryTotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.3rem;
+  font-weight: 700;
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+  color: var(--text-main);
+}
+
+.cartPage__checkoutBtn {
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.cartPage__checkoutBtn:hover {
+  background-color: var(--primary-hover);
+}

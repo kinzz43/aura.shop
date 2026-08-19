@@ -11,6 +11,7 @@ export const fetchProductsFromDb = async (): Promise<Product[]> => {
   return (data || []).map((item) => ({
     id: item.id,
     title: item.title,
+    brand: item.brand,
     description: item.description,
     price: Number(item.price),
     oldPrice: item.old_price ? Number(item.old_price) : undefined,

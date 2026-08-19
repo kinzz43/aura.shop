@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/app/store";
 import { setSearchQuery } from "@/features/filter-products/model/slice";
+import { supabase } from "@/shared/api/supabaseClient";
 import { Logo } from "@/shared/ui/Logo/Logo";
 import { CartModal } from "@/widgets/cart-modal/ui/CartModal";
 import styles from "./Header.module.css";
@@ -18,13 +20,43 @@ export const Header = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [balance, setBalance] = useState<number | null>(null);
 
-  // Инициализация темы из localStorage или по умолчанию 'dark'
   const [theme, setTheme] = useState<"dark" | "light">(() => {
     return (localStorage.getItem("theme") as "dark" | "light") || "dark";
   });
 
-  // При изменении темы меняем атрибут на html и сохраняем в LS
+  // Загрузка баланса пользователя
+  useEffect(() => {
+    const getBalance = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        const { data } = await supabase
+          .from("profiles")
+          .select("balance")
+          .eq("id", session.user.id)
+          .single();
+
+        if (data) setBalance(data.balance);
+      } else {
+        setBalance(null);
+      }
+    };
+
+    getBalance();
+
+    // Слушаем изменения авторизации
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
+      if (session?.user) {
+        getBalance();
+      } else {
+        setBalance(null);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [totalPrice]); // Перезапрашиваем баланс после изменений в корзине/оплате
+
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
@@ -54,13 +86,14 @@ export const Header = () => {
   return (
     <>
       <header
-        className={`${styles.header} ${!isVisible ? styles["header--hidden"] : ""
-          }`}
+        className={`${styles.header} ${
+          !isVisible ? styles["header--hidden"] : ""
+        }`}
       >
         <div className={styles.header__container}>
-          <a href="#" style={{ display: "inline-block" }}>
+          <Link to="/" style={{ display: "inline-block" }}>
             <Logo />
-          </a>
+          </Link>
 
           <div className={styles.header__search}>
             <input
@@ -72,8 +105,7 @@ export const Header = () => {
             />
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            {/* Кнопка переключения темы */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
             <button
               onClick={toggleTheme}
               style={{
@@ -85,7 +117,7 @@ export const Header = () => {
                 cursor: "pointer",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "Center",
+                justifyContent: "center",
               }}
               title="Сменить тему"
             >
@@ -97,6 +129,41 @@ export const Header = () => {
                 style={{ display: "block" }}
               />
             </button>
+
+            <Link
+              to="/profile"
+              style={{
+                background: "var(--surface-elevated)",
+                border: "1px solid var(--border-color)",
+                color: "var(--text-main)",
+                padding: "0.4rem 0.8rem",
+                borderRadius: "8px",
+                cursor: "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+                textDecoration: "none",
+                fontSize: "0.9rem",
+                fontWeight: 500,
+              }}
+              title="Профиль"
+            >
+              <span>Профиль</span>
+              {balance !== null && (
+                <span
+                  style={{
+                    background: "var(--primary-color)",
+                    color: "#fff",
+                    padding: "0.1rem 0.4rem",
+                    borderRadius: "4px",
+                    fontSize: "0.8rem",
+                    fontWeight: 600,
+                  }}
+                >
+                  {balance} ₽
+                </span>
+              )}
+            </Link>
 
             <div
               className={styles.header__cart}
